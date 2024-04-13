@@ -1,0 +1,29 @@
+name: App CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "15"
+          
+      - name: Install
+        run: npm install
+
+      - name: Linter
+        run: npm run lint
+
+      - name: Formatter
+        run: npm run prettier
+
+      - name: Test
+        run: CI=true npm run test
+
+      - name: Build
+        run: npm run build
