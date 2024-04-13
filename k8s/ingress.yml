@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minimal-ingress
+  name: app-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
 spec:
-  ingressClassName: nginx-example
   rules:
-  - http:
+  - host: fsl-challenge.me
+    http:
       paths:
-      - path: /testpath
-        pathType: Prefix
+      - path: /
+        pathType: ImplementationSpecific
         backend:
           service:
-            name: test
+            name: app-service
             port:
               number: 80
